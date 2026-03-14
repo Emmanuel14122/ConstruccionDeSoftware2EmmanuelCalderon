@@ -3,15 +3,11 @@ package app.domain.models;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
 @NoArgsConstructor
 
-public abstract class Client{
+public class CompanyEmployee extends UserSystem {
 
-    private String Address;
-    private String PhoneNumber;
-    private String Email;
     
 }

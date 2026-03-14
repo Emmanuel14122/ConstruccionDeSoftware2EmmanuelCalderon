@@ -8,10 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public abstract class Client{
-
-    private String Address;
-    private String PhoneNumber;
-    private String Email;
+public class CommercialEmployee extends UserSystem {
+    
     
 }

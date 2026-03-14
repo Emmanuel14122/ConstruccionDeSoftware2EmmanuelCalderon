@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public abstract class User {
+public abstract class UserSystem {
 
     private int Id_User;
     private String Id_Related;
@@ -18,7 +18,7 @@ public abstract class User {
     private String Id_Identification;
     private String Email;
     private String Phone;
-    private Date Date_Birth;
+    private Date birthDate;
     private String Address;
     private String System_Role;
     private String User_Status;
