@@ -1,4 +1,4 @@
-package app.domain.models;
+package app.domain.Models;
 
 
 public enum Role {
