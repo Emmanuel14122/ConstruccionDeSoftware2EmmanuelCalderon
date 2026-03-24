@@ -1,6 +1,6 @@
-package app.domain.Models;
+package app.domain.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
@@ -14,13 +14,13 @@ import lombok.Setter;
 
 
 public class Transfer {
-    private int transfer_id;
-    private String origin_account;
-    private String destination_account;
-    private double amount;
-    private Date creation_date;
-    private Date approval_date;
-    private String transfer_status;
-    private int creator_user_id;
-    private int approver_user_id;
+    private int transferId;
+    private String originAccount;
+    private String destinationAccount;
+    private BigDecimal amount;
+    private Date creationDate;
+    private Date approvalDate;
+    private String transferStatus;
+    private int creatorUserId;
+    private int approverUserId;
 }

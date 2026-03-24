@@ -1,9 +1,9 @@
-package app.domain.Models;
+package app.domain.models;
 
 
 public enum Role {
 
-    Counter_Employee, 
+    CounterEmployee, 
     CommercialEmployee,
     CompanyEmployee,
     CompanySupervisor,

@@ -1,4 +1,4 @@
-package app.domain.Models;
+package app.domain.models;
 
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class GeneralBankingProduct {
-    private String product_code;
-    private String product_name;
+    private String productCode;
+    private String productName;
     private String category;
-    private boolean requires_approval;
+    private boolean requiresApproval;
 }

@@ -1,6 +1,6 @@
-package app.domain.Models;
+package app.domain.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
@@ -13,16 +13,16 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Loan {
-    private int loan_id;
-    private String type_loan;
-    private String client_requestor_id;
-    private double requesting_amount;
-    private double approved_amount;
-    private double interest_rate;
-    private int term_months;
-    private String loan_status;
-    private Date approval_date;
-    private Date disbursement_date;
-    private String destination_account_disbursement;
+    private int loanId;
+    private String typeLoan;
+    private String clientRequestor_id;
+    private BigDecimal requestingAmount;
+    private BigDecimal approvedAmount;
+    private double interestRate;
+    private int termMonths;
+    private String loanStatus;
+    private Date approvalDate;
+    private Date disbursementDate;
+    private String destinationAccountDisbursement;
 
 }

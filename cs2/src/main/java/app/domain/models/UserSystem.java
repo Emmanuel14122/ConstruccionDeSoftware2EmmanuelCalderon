@@ -1,4 +1,4 @@
-package app.domain.Models;
+package app.domain.models;
 
 import java.sql.Date;
 
@@ -14,15 +14,15 @@ import lombok.Setter;
 
 public abstract class UserSystem {
 
-    private int id_user;
-    private String id_related;
-    private String full_name;
-    private String id_identification;
+    private int idUser;
+    private String idRelated;
+    private String fullName;
+    private String idIdentification;
     private String email;
     private String phone;
     private Date birthDate;
     private String address;
-    private String system_role;
-    private String user_status;
+    private String systemRole;
+    private String userStatus;
 
 }
