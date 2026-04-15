@@ -2,6 +2,8 @@ package app.domain.models;
 
 import java.sql.Date;
 
+import app.domain.models.enums.RolUser;
+import app.domain.models.enums.UserStatus;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -22,7 +24,7 @@ public abstract class UserSystem {
     private String phone;
     private Date birthDate;
     private String address;
-    private String systemRole;
-    private String userStatus;
+    private RolUser systemRole;
+    private UserStatus userStatus;
 
 }
