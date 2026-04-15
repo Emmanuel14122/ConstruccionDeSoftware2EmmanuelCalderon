@@ -1,5 +1,9 @@
 package app.domain.models;
+import java.math.BigDecimal;
 
+import app.domain.models.enums.AccountStatus;
+import app.domain.models.enums.AccountType;
+import app.domain.models.enums.Currency;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -13,12 +17,12 @@ import java.sql.Date;
 
 public class BankAccount {
     
-    private String accountNumber;
-    private String accountType;
+    private int accountNumber;
+    private AccountType accountType;
     private String idTitular;
     private BigDecimal currentBalance;
-    private String currency;
-    private String accountStatus;
+    private Currency currency;
+    private AccountStatus accountStatus;
     private Date openingDate;
 
 }
