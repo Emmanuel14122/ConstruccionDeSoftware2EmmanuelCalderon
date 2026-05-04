@@ -5,6 +5,7 @@ import java.sql.Date;
 import app.domain.models.enums.RolUser;
 import app.domain.models.enums.UserStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,8 @@ import lombok.Setter;
 
 public abstract class UserSystem {
 
-    private int idUser;
+    @Id
+    private Long idUser;
     private String idRelated;
     private String fullName;
     private String idIdentification;
@@ -26,5 +28,7 @@ public abstract class UserSystem {
     private String address;
     private RolUser systemRole;
     private UserStatus userStatus;
+    private String username;
+    private String password;
 
 }

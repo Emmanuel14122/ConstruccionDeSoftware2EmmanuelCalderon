@@ -3,11 +3,16 @@ package app.domain.models;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import app.domain.models.enums.ClientStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@MappedSuperclass
 @Entity
 @Getter
 @Setter
@@ -23,5 +28,8 @@ public abstract class Client{
     @NotBlank(message= "Email is required")
     @Email(message = "Email must contain @ and a valid domain")
     private String email;
+    @Enumerated(EnumType.STRING)
+    private ClientStatus clientStatus;
+    
     
 }

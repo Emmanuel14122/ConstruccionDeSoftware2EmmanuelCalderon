@@ -1,11 +1,13 @@
 package app.domain.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.math.BigDecimal;
 
 import app.domain.models.enums.LoanStatus;
 import app.domain.models.enums.LoanType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,16 +18,18 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Loan {
-    private int loanId;
-    private LoanType typeLoan;
+    @Id
+    private Long loanId;
+    private LoanType loanType;
     private String clientRequestorId;
-    private BigDecimal requestingAmount;
+    private BigDecimal requestedAmount;
     private BigDecimal approvedAmount;
-    private double interestRate;
+    private BigDecimal interestRate;
     private int termMonths;
     private LoanStatus loanStatus;
-    private Date approvalDate;
-    private Date disbursementDate;
+    private LocalDate approvalDate;
+    private LocalDate disbursementDate;
     private String destinationAccountDisbursement;
+    private Long approverAnalystId;
 
 }

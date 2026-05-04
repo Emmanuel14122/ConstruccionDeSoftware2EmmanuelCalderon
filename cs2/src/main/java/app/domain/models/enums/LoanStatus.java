@@ -1,9 +1,10 @@
 package app.domain.models.enums;
 
 public enum LoanStatus {
+    UnderReview,
     Requested,
     Approved,
-    Disburser,
+    Disbursed,
     Rejected,
     Completed
 }

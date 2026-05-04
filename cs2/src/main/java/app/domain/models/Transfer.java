@@ -1,10 +1,11 @@
 package app.domain.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
 import app.domain.models.enums.TransferStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +17,16 @@ import lombok.Setter;
 
 
 public class Transfer {
-    private int transferId;
-    private BankAccount originAccount;
-    private BankAccount destinationAccount;
+
+    @Id
+    private Long transferId;
+    private String originAccount;
+    private String destinationAccount;
     private BigDecimal amount;
-    private Date creationDate;
-    private Date approvalDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime approvalDate;
     private TransferStatus transferStatus;
-    private int creatorUserId;
-    private int approverUserId;
+    private Long creatorUserId;
+    private Long approverUserId;
+    private LocalDateTime expirationCheckAt;
 }

@@ -1,20 +1,40 @@
 package app.domain.ports;
 
 import java.util.List;
+import java.util.Optional;
 
 import app.domain.models.UserSystem;
+import app.domain.models.enums.RolUser;
+import app.domain.models.enums.UserStatus;
 
 public interface UserPort {
-    public boolean existisByDocument(String identification);
-    public boolean existisByUserName(String userName);
-    public boolean existsByEmail(String email);
 
-    public UserSystem findByDocument(String identification);
-    public UserSystem findByUserName(String userName);
-    public List<UserSystem> findAll();
+    Optional<UserSystem> findById(Long idUser);
 
+    Optional<UserSystem> findByDocument(String identification);
 
-    public void save(UserSystem user);
-    public void update(UserSystem user);
-    public void deleteByDocument(String identification);
+    Optional<UserSystem> findByUsername(String username);
+
+    Optional<UserSystem> findByEmail(String email);
+
+    List<UserSystem> findAll();
+
+    List<UserSystem> findByRole(RolUser role);
+
+    List<UserSystem> findByStatus(UserStatus status);
+
+    List<UserSystem> findByRoleAndStatus(RolUser role, UserStatus status);
+
+ 
+    boolean existsByDocument(String identification);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
+    void save(UserSystem user);
+
+    void update(UserSystem user);
+
+    void deleteByDocument(String identification);
 }

@@ -1,18 +1,27 @@
 package app.domain.ports;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import app.domain.models.BankAccount;
-import app.domain.models.Client;
+import app.domain.models.enums.AccountStatus;
 
 public interface BankAccountPort {
-    //find
-    public BankAccount findById(String id);
-    public List<BankAccount> findByCustomer(Client client);
-    //exists
-    public boolean existsByNumber(long accountNumber);
-    public boolean existsById(String id);
-    //operation
-    public void save(BankAccount bankAccount);
-    public void update(BankAccount bankAccount);
+
+    Optional<BankAccount> findByAccountNumber(String accountNumber);
+
+    List<BankAccount> findByTitular(String idTitular);
+
+    List<BankAccount> findByTitularAndStatus(String idTitular, AccountStatus status);
+
+    List<BankAccount> findAll();
+
+    boolean existsByAccountNumber(String accountNumber);
+
+    void save(BankAccount bankAccount);
+
+    void update(BankAccount bankAccount);
+
+    void updateBalance(String accountNumber, BigDecimal newBalance);
 }
