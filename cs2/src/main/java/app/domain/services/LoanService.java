@@ -10,12 +10,12 @@ import java.util.UUID;
 import app.domain.exception.BussinesException;
 import app.domain.exception.NotFoundException;
 import app.domain.models.BankAccount;
-import app.domain.models.Bitacora;
+import app.domain.models.OperationsLog;
 import app.domain.models.Loan;
 import app.domain.models.enums.LoanStatus;
 import app.domain.models.enums.LoanType;
 import app.domain.ports.BankAccountPort;
-import app.domain.ports.BitacoraPort;
+import app.domain.ports.OperationsLogPort;
 import app.domain.ports.LoanPort;
 
 
@@ -23,12 +23,12 @@ public class LoanService {
 
     private final LoanPort loanPort;
     private final BankAccountPort bankAccountPort;
-    private final BitacoraPort bitacoraPort;
+    private final OperationsLogPort bitacoraPort;
     private final ClientService clientService;
 
     public LoanService(LoanPort loanPort,
                        BankAccountPort bankAccountPort,
-                       BitacoraPort bitacoraPort,
+                       OperationsLogPort bitacoraPort,
                        ClientService clientService) {
         this.loanPort = loanPort;
         this.bankAccountPort = bankAccountPort;
@@ -195,13 +195,13 @@ public class LoanService {
         loanPort.update(loan);
 
         // 7. Registrar en Bitácora
-        Bitacora registro = Bitacora.builder()
-            .idBitacora(UUID.randomUUID().toString())
+        OperationsLog record = OperationsLog.builder()
+            .logbookId(UUID.randomUUID().toString())
             .operationType("LOAN_DISBURSED")
             .operationDateTime(LocalDateTime.now())
-            .idUser(analystId)
-            .rolUser(analystRole)
-            .idProductoAfectado(String.valueOf(loan.getLoanId()))
+            .userId(analystId)
+            .userRole(analystRole)
+            .affectedProductId(String.valueOf(loan.getLoanId()))
             .detailData(Map.of(
                 "loanId", loan.getLoanId(),
                 "clientRequestorId", loan.getClientRequestorId(),
@@ -216,7 +216,7 @@ public class LoanService {
             ))
             .build();
 
-        bitacoraPort.save(registro);
+        bitacoraPort.save(record);
 
         return loan;
     }
@@ -274,25 +274,25 @@ public class LoanService {
                                                 String userRole,
                                                 BigDecimal approvedAmount,
                                                 BigDecimal interestRate) {
-        Map<String, Object> detalle = new java.util.HashMap<>();
-        detalle.put("loanId", loan.getLoanId());
-        detalle.put("clientRequestorId", loan.getClientRequestorId());
-        detalle.put("newStatus", newStatus.name());
-        if (previousStatus != null) detalle.put("previousStatus", previousStatus.name());
-        if (approvedAmount != null) detalle.put("approvedAmount", approvedAmount);
-        if (interestRate != null) detalle.put("interestRate", interestRate);
-        if (loan.getApproverAnalystId() != null) detalle.put("analystId", loan.getApproverAnalystId());
+        Map<String, Object> detailData = new java.util.HashMap<>();
+        detailData.put("loanId", loan.getLoanId());
+        detailData.put("clientRequestorId", loan.getClientRequestorId());
+        detailData.put("newStatus", newStatus.name());
+        if (previousStatus != null) detailData.put("previousStatus", previousStatus.name());
+        if (approvedAmount != null) detailData.put("approvedAmount", approvedAmount);
+        if (interestRate != null) detailData.put("interestRate", interestRate);
+        if (loan.getApproverAnalystId() != null) detailData.put("analystId", loan.getApproverAnalystId());
 
-        Bitacora registro = Bitacora.builder()
-            .idBitacora(UUID.randomUUID().toString())
+        OperationsLog record = OperationsLog.builder()
+            .logbookId(UUID.randomUUID().toString())
             .operationType(operationType)
             .operationDateTime(LocalDateTime.now())
-            .idUser(userId)
-            .rolUser(userRole)
-            .idProductoAfectado(loan.getLoanId() != null ? String.valueOf(loan.getLoanId()) : "PENDING")
-            .detailData(detalle)
+            .userId(userId)
+            .userRole(userRole)
+            .affectedProductId(loan.getLoanId() != null ? String.valueOf(loan.getLoanId()) : "PENDING")
+            .detailData(detailData)
             .build();
 
-        bitacoraPort.save(registro);
+        bitacoraPort.save(record);
     }
 }

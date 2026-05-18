@@ -3,12 +3,12 @@ package app.application.adapters.api.response;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public record BitacoraResponse(
-        String idBitacora,
+public record OperationsLogResponse(
+        String logbookId,
         String operationType,
         LocalDateTime operationDateTime,
-        Long idUser,
-        String rolUser,
-        String idProductoAfectado,
+        Long userId,
+        String userRole,
+        String affectedProductId,
         Map<String, Object> detailData
 ) {}

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import app.domain.models.UserSystem;
-import app.domain.models.enums.RolUser;
+import app.domain.models.enums.UserRole;
 import app.domain.models.enums.UserStatus;
 
 public interface UserPort {
@@ -19,11 +19,11 @@ public interface UserPort {
 
     List<UserSystem> findAll();
 
-    List<UserSystem> findByRole(RolUser role);
+    List<UserSystem> findByRole(UserRole role);
 
     List<UserSystem> findByStatus(UserStatus status);
 
-    List<UserSystem> findByRoleAndStatus(RolUser role, UserStatus status);
+    List<UserSystem> findByRoleAndStatus(UserRole role, UserStatus status);
 
  
     boolean existsByDocument(String identification);

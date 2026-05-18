@@ -5,7 +5,7 @@ import java.util.List;
 import app.domain.exception.BussinesException;
 import app.domain.exception.NotFoundException;
 import app.domain.models.UserSystem;
-import app.domain.models.enums.RolUser;
+import app.domain.models.enums.UserRole;
 import app.domain.models.enums.UserStatus;
 import app.domain.ports.UserPort;
 
@@ -85,12 +85,12 @@ public class UserService {
     }
 
     //Retorna todos los usuarios con un rol específico.
-    public List<UserSystem> getUsersByRole(RolUser role) {
+    public List<UserSystem> getUsersByRole(UserRole role) {
         return userPort.findByRole(role);
     }
 
     //Retorna todos los usuarios activos con un rol específico.
-    public List<UserSystem> getActiveUsersByRole(RolUser role) {
+    public List<UserSystem> getActiveUsersByRole(UserRole role) {
         return userPort.findByRoleAndStatus(role, UserStatus.Active);
     }
 
@@ -110,7 +110,7 @@ public class UserService {
     }
 
     //Valida que un usuario tenga el rol requerido para ejecutar una operación.
-    public void validateUserHasRole(Long userId, RolUser requiredRole) {
+    public void validateUserHasRole(Long userId, UserRole requiredRole) {
         UserSystem user = getUserById(userId);
 
         if (user.getSystemRole() != requiredRole) {

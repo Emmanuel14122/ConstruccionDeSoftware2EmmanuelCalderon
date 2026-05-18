@@ -16,14 +16,14 @@ import lombok.Setter;
 @Builder
 
 
-public class Bitacora {
+public class OperationsLog {
 
-    private String idBitacora;
+    private String logbookId;
     private String operationType;
     private LocalDateTime operationDateTime;
-    private Long idUser;
-    private String rolUser;
-    private String idProductoAfectado;
+    private Long userId;
+    private String userRole;
+    private String affectedProductId;
 
     private Map<String, Object> detailData;
 }

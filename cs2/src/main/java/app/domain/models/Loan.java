@@ -5,19 +5,16 @@ import java.math.BigDecimal;
 
 import app.domain.models.enums.LoanStatus;
 import app.domain.models.enums.LoanType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 
 public class Loan {
-    @Id
+
     private Long loanId;
     private LoanType loanType;
     private String clientRequestorId;

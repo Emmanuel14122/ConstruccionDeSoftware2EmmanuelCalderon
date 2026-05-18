@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
  
 @Getter
 @Setter
-public class BitacoraRequest {
+public class OperationsLogRequest {
  
-    private String idBitacora;
+    private String logbookId;
     private String operationType;
     private LocalDateTime operationDateTime;
-    private Long idUser;
-    private String rolUser;
-    private String idProductoAfectado;
+    private Long userId;
+    private String userRole;
+    private String affectedProductId;
 
     private Map<String, Object> detailData;
 }

@@ -1,5 +1,8 @@
 package app.application.adapters.persistence.sql.repositories;
 
-public class TransferRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import app.application.adapters.persistence.sql.entities.TransferEntity;
+
+public interface TransferRepository extends JpaRepository<TransferEntity, Long> {
     
 }

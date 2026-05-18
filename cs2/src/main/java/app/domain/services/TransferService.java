@@ -9,12 +9,12 @@ import java.util.UUID;
 import app.domain.exception.BussinesException;
 import app.domain.exception.NotFoundException;
 import app.domain.models.BankAccount;
-import app.domain.models.Bitacora;
+import app.domain.models.OperationsLog;
 import app.domain.models.Transfer;
 import app.domain.models.enums.AccountStatus;
 import app.domain.models.enums.TransferStatus;
 import app.domain.ports.BankAccountPort;
-import app.domain.ports.BitacoraPort;
+import app.domain.ports.OperationsLogPort;
 import app.domain.ports.TransferPort;
 
 
@@ -29,11 +29,11 @@ public class TransferService {
 
     private final TransferPort transferPort;
     private final BankAccountPort bankAccountPort;
-    private final BitacoraPort bitacoraPort;
+    private final OperationsLogPort bitacoraPort;
 
     public TransferService(TransferPort transferPort,
                            BankAccountPort bankAccountPort,
-                           BitacoraPort bitacoraPort) {
+                           OperationsLogPort bitacoraPort) {
         this.transferPort = transferPort;
         this.bankAccountPort = bankAccountPort;
         this.bitacoraPort = bitacoraPort;
@@ -171,13 +171,13 @@ public class TransferService {
             transferPort.update(transfer);
 
             // Registrar vencimiento en Bitácora (requerido explícitamente por el enunciado)
-            Bitacora registro = Bitacora.builder()
-                .idBitacora(UUID.randomUUID().toString())
+            OperationsLog record = OperationsLog.builder()
+                .logbookId(UUID.randomUUID().toString())
                 .operationType("TRANSFER_EXPIRED")
                 .operationDateTime(now)
-                .idUser(0L) // usuario SISTEMA (job automático)
-                .rolUser("SYSTEM_JOB")
-                .idProductoAfectado(String.valueOf(transfer.getTransferId()))
+                .userId(0L) // usuario SISTEMA (job automático)
+                .userRole("SYSTEM_JOB")
+                .affectedProductId(String.valueOf(transfer.getTransferId()))
                 .detailData(Map.of(
                     "transferId", transfer.getTransferId(),
                     "originAccount", transfer.getOriginAccount(),
@@ -190,7 +190,7 @@ public class TransferService {
                 ))
                 .build();
 
-            bitacoraPort.save(registro);
+            bitacoraPort.save(record);
         }
     }
 
@@ -344,30 +344,30 @@ public class TransferService {
                                          BigDecimal saldoDespuesDest,
                                          Long userId,
                                          String userRole) {
-        Map<String, Object> detalle = new java.util.HashMap<>();
-        detalle.put("transferId", transfer.getTransferId());
-        detalle.put("originAccount", transfer.getOriginAccount());
-        detalle.put("destinationAccount", transfer.getDestinationAccount());
-        detalle.put("amount", transfer.getAmount());
-        detalle.put("status", transfer.getTransferStatus().name());
+        Map<String, Object> detailData = new java.util.HashMap<>();
+        detailData.put("transferId", transfer.getTransferId());
+        detailData.put("originAccount", transfer.getOriginAccount());
+        detailData.put("destinationAccount", transfer.getDestinationAccount());
+        detailData.put("amount", transfer.getAmount());
+        detailData.put("status", transfer.getTransferStatus().name());
 
         if (saldoAntesOrigen != null) {
-            detalle.put("saldoAntesOrigen", saldoAntesOrigen);
-            detalle.put("saldoDespuesOrigen", saldoDespuesOrigen);
-            detalle.put("saldoAntesDest", saldoAntesDest);
-            detalle.put("saldoDespuesDest", saldoDespuesDest);
+            detailData.put("saldoAntesOrigen", saldoAntesOrigen);
+            detailData.put("saldoDespuesOrigen", saldoDespuesOrigen);
+            detailData.put("saldoAntesDest", saldoAntesDest);
+            detailData.put("saldoDespuesDest", saldoDespuesDest);
         }
 
-        Bitacora registro = Bitacora.builder()
-            .idBitacora(UUID.randomUUID().toString())
+        OperationsLog record = OperationsLog.builder()
+            .logbookId(UUID.randomUUID().toString())
             .operationType(operationType)
             .operationDateTime(LocalDateTime.now())
-            .idUser(userId)
-            .rolUser(userRole)
-            .idProductoAfectado(String.valueOf(transfer.getTransferId()))
-            .detailData(detalle)
+            .userId(userId)
+            .userRole(userRole)
+            .affectedProductId(String.valueOf(transfer.getTransferId()))
+            .detailData(detailData)
             .build();
 
-        bitacoraPort.save(registro);
+        bitacoraPort.save(record);
     }
 }

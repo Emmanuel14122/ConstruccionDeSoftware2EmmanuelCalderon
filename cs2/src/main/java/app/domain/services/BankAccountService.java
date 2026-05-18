@@ -10,22 +10,22 @@ import java.util.UUID;
 import app.domain.exception.BussinesException;
 import app.domain.exception.NotFoundException;
 import app.domain.models.BankAccount;
-import app.domain.models.Bitacora;
+import app.domain.models.OperationsLog;
 import app.domain.models.enums.AccountStatus;
 import app.domain.models.enums.AccountType;
 import app.domain.models.enums.Currency;
 import app.domain.ports.BankAccountPort;
-import app.domain.ports.BitacoraPort;
+import app.domain.ports.OperationsLogPort;
 
 
 public class BankAccountService {
 
     private final BankAccountPort bankAccountPort;
-    private final BitacoraPort bitacoraPort;
+    private final OperationsLogPort bitacoraPort;
     private final ClientService clientService;
 
     public BankAccountService(BankAccountPort bankAccountPort,
-                               BitacoraPort bitacoraPort,
+                               OperationsLogPort bitacoraPort,
                                ClientService clientService) {
         this.bankAccountPort = bankAccountPort;
         this.bitacoraPort = bitacoraPort;
@@ -120,13 +120,13 @@ public class BankAccountService {
 
     // Métodos privados
     private void registrarAperturaCuenta(BankAccount account, Long operatorUserId, String operatorRole) {
-        Bitacora registro = Bitacora.builder()
-            .idBitacora(UUID.randomUUID().toString())
+        OperationsLog record = OperationsLog.builder()
+            .logbookId(UUID.randomUUID().toString())
             .operationType("ACCOUNT_OPENED")
             .operationDateTime(LocalDateTime.now())
-            .idUser(operatorUserId)
-            .rolUser(operatorRole)
-            .idProductoAfectado(account.getAccountNumber())
+            .userId(operatorUserId)
+            .userRole(operatorRole)
+            .affectedProductId(account.getAccountNumber())
             .detailData(Map.of(
                 "accountNumber", account.getAccountNumber(),
                 "accountType", account.getAccountType().name(),
@@ -137,6 +137,6 @@ public class BankAccountService {
             ))
             .build();
 
-        bitacoraPort.save(registro);
+        bitacoraPort.save(record);
     }
 }

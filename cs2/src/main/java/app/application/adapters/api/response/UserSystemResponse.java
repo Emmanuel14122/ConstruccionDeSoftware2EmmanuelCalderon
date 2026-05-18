@@ -1,8 +1,9 @@
 package app.application.adapters.api.response;
  
-import app.domain.models.enums.RolUser;
+import app.domain.models.enums.UserRole;
 import app.domain.models.enums.UserStatus;
-import java.util.Date;
+
+import java.time.LocalDateTime;
  
 public record UserSystemResponse(
     Long idUser,
@@ -11,9 +12,9 @@ public record UserSystemResponse(
     String idIdentification,
     String email,
     String phone,
-    Date birthDate,
+    LocalDateTime birthDate,
     String address,
-    RolUser systemRole,
+    UserRole systemRole,
     UserStatus userStatus,
     String username,
     String password

@@ -1,6 +1,6 @@
 package app.domain.models.enums;
 
-public enum RolClient {
+public enum ClientRole {
     NaturalPersonClient, CompanyClient
 }
 

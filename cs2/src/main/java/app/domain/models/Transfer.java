@@ -4,13 +4,10 @@ import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
 import app.domain.models.enums.TransferStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +15,6 @@ import lombok.Setter;
 
 public class Transfer {
 
-    @Id
     private Long transferId;
     private String originAccount;
     private String destinationAccount;
